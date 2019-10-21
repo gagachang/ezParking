@@ -7,17 +7,17 @@ YOLO website: [YOLO: Real-Time Object Detection](https://pjreddie.com/darknet/yo
 Run the bash file in `ezParking/scripts`
 
 ```bash
-cd ezParking/scripts
+cd ~/ezParking/scripts
 bash yolo.sh
 ```
 
 ## Test Images
 
 The test images are stored in `ezParking/testImage` <br />
-Copy them into YOLO directory
+Copy them into YOLO's directory
 
 ```bash
-cd ezParking/testImage
+cd ~/ezParking/testImage
 cp *.jpg ~/darknet/data/
 ```
 
@@ -26,12 +26,12 @@ cp *.jpg ~/darknet/data/
 Run the YOLO detector
 
 ```bash
-cd ezParking/darknet
+cd ~/darknet
 ./darknet detect cfg/yolov3.cfg yolov3.weights data/car2.jpg
 ```
 
 ## Results
 
-The detect result for `car2.jpg`
+The detect result will put in `darknet` directory and named `predictions.jpg`
 
 ![image](https://github.com/gagachang/ezParking/blob/master/testImage/car2-result.png)
