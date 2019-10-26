@@ -2,6 +2,7 @@ import requests
 import json
 import time
 
+# upload picture to sensor
 device_id = '19151543448'
 api_url = 'https://iot.cht.com.tw/iot/v1/device/{0}/snapshot'.format(device_id)
 
@@ -16,4 +17,28 @@ files = {
 response = requests.post(api_url, files=files, headers=headers)
 print(response.text.encode('ascii'))
 
+# download picture to raspberry pi2
+sensorID = "camera1"
+apiURL = 'https://iot.cht.com.tw/iot/v1/device/' + deviceID + '/sensor/' + sensorID + '/snapshot'  # restful url (GET)
 
+headers = {
+    "CK": "PKYMWHKYFR1ZK2K0YE",
+    "device_id": deviceID,
+    "sensor_id": sensorID
+}
+
+response = requests.get(apiURL, headers=headers)
+with open("./testpic.jpg", 'wb') as f:
+    f.write(response.content)
+
+# upload picture to car detection api, then evaluate/upload parking lots information
+apiURL = 'https://iot.cht.com.tw/apis/CHTIoT/ivs-vehicle/v1/snapshot'
+
+headers = {
+    "X-API-KEY": "ea522b8e-696e-4084-b9eb-97fdbd677d52",
+}
+
+files = {"file": open("./testpic.jpg", "rb")}
+
+response = requests.post(apiURL, files=files, headers=headers)
+print(response.text)  # Here we get how many cars parking in the camera area
