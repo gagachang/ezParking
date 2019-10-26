@@ -13,12 +13,12 @@ bash yolo.sh
 
 ## Test Images
 
-The test images are stored in `ezParking/testImage` <br />
+The test images are stored in `ezParking/static/img` <br />
 Copy them into YOLO's directory
 
 ```bash
-cd ~/ezParking/testImage
-cp *.jpg ~/darknet/data/
+cd ~/ezParking/static/img
+cp car2.jpg ~/darknet/data/
 ```
 
 ## Usage
