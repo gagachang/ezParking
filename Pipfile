@@ -9,6 +9,7 @@ verify_ssl = true
 requests = "*"
 flask = "*"
 opencv-python = "*"
+rtsp = "*"
 
 [requires]
 python_version = "3"
