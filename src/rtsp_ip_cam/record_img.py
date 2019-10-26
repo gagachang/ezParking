@@ -14,7 +14,7 @@ class IPCam:
     def record_img(self):
         try:
             record_path = '{0}{1}.jpg'.format(
-                self._img_path, datetime.now().strftime("%Y%m%d-%H%M%S"))
+                self._img_path, datetime.now().strftime('%Y%m%d-%H%M%S'))
             self._rtsp_client.read().save(record_path)
             return os.path.basename(record_path)
         except Exception as e:

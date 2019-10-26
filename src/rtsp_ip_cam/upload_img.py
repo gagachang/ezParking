@@ -43,9 +43,7 @@ class UploadImg:
         ip_cam = IPCam()
         while True:
             begin = time.time()
-            file_name = ip_cam.record_img()
-            print(file_name)
-            print(self.post_img(file_name))
+            print(self.post_img(ip_cam.record_img()))
             time.sleep(max(0.0, interval-(time.time()-begin)))
 
 
