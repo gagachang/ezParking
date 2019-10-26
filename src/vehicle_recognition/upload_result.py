@@ -6,6 +6,7 @@ import requests
 
 from vehicle_recognition.download_img import DownloadImg
 from vehicle_recognition.recognize_vehicle import RecognizeVehicle
+from vehicle_recognition.check_vehicle_existence import UploadExistence
 
 
 class UploadResult:
@@ -44,13 +45,16 @@ class UploadResult:
     def keep_post_result(self, interval=10):
         downloader = DownloadImg()
         recognizer = RecognizeVehicle()
+        existence = UploadExistence()
         while True:
             begin = time.time()
             file_name = downloader.get_img()
             result = recognizer.recognize(file_name)
+            print(result)
             labeler = _LabelVehicle(file_name)
             labeler.label(result)
             print(self._post_result(file_name))
+            existence.post_status(result)
             time.sleep(max(0.0, interval-(time.time()-begin)))
 
 
@@ -66,13 +70,13 @@ class _LabelVehicle:
         try:
             image = cv2.imread('{0}{1}'.format(
                 self._img_path, self._file_name))
-
-            for vehicle in recognize_result:
-                start_point = (vehicle['x'], vehicle['y'])
-                end_point = (vehicle['x'] + vehicle['width'],
-                             vehicle['y'] + vehicle['height'])
-                image = cv2.rectangle(image, start_point, end_point,
-                                      self._color, self._thickness)
+            if recognize_result is not None:
+                for vehicle in recognize_result:
+                    start_point = (vehicle['x'], vehicle['y'])
+                    end_point = (vehicle['x'] + vehicle['width'],
+                                 vehicle['y'] + vehicle['height'])
+                    image = cv2.rectangle(image, start_point, end_point,
+                                          self._color, self._thickness)
 
             cv2.imwrite('{0}{1}'.format(self._result_path, self._file_name),
                         image)
