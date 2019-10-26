@@ -5,16 +5,18 @@
     <title>ezParking</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" href="assets/css/login.css" />
-    <link rel="stylesheet" href="assets/css/main.css" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/images/login.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}" />
   </head>
-  
+
   <body id="top">
+  	{% extends "template.html" %}
+    {% block content %}
 	 <section id="loginbanner" >
 		 <div class="inner">
 			<div class="wrap-login100">
 				<div class="login100-pic js-tilt" data-tilt>
-					<img src="images/img-01.png" alt="IMG">
+					<img src="{{ url_for('static', filename='images/img-01.png') }}" alt="IMG">
 				</div>
 
 				<form class="login100-form validate-form">
@@ -37,7 +39,7 @@
 							<i class="fa fa-lock" aria-hidden="true"></i>
 						</span>
 					</div>
-					
+
 					<div class="container-login100-form-btn">
 						<button class="login100-form-btn">
 							Login
@@ -62,7 +64,7 @@
 				</form>
 		 </div>
 	 </section>
-	 <!--===============================================================================================-->	
+	 <!--===============================================================================================-->
 	<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
 <!--===============================================================================================-->
 	<script src="vendor/bootstrap/js/popper.js"></script>
@@ -79,4 +81,5 @@
 <!--===============================================================================================-->
 	<script src="js/login.js"></script>
   </body>
+        {% endblock %}
 </html>

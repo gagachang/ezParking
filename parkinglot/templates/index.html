@@ -16,7 +16,7 @@
         <div id="menu">
             <div>
                 <div class="active"><a href="index.html" accesskey="1" title="">Latest Parking Lot</a></div>
-                <div><a href="login.html" accesskey="2" title="">Login</a></div>
+                <div><a href="login" accesskey="2" title="">Login</a></div>
             </div>
         </div>
       </div>
@@ -71,26 +71,26 @@
 
 
 
-      <div class="container">
+      <!--div class="container">
         <span id="car-info">{{carInfo}}</span>
         <span id="car-num">停了{{carNum}}輛車</span>
-      </div>
+      </div-->
     <script>
-    function fetchdata(){
-        $.ajax({
-            url: '/getData',
-            type: 'get',
-            success: function(response){
-            // Perform operation on the return value
-            console.log(response);
-            document.getElementById("car-info").innerHTML = JSON.stringify(response['carInfo']);
-            document.getElementById("car-num").innerHTML = response['carNum'];
-            }
-        });
-    }
-    $(document).ready(function(){
-        setInterval(fetchdata, 3000);
-    });
+//    function fetchdata(){
+//        $.ajax({
+//            url: '/getData',
+//            type: 'get',
+//            success: function(response){
+//            // Perform operation on the return value
+//            console.log(response);
+//            document.getElementById("car-info").innerHTML = JSON.stringify(response['carInfo']);
+//            document.getElementById("car-num").innerHTML = response['carNum'];
+//            }
+//        });
+//    }
+//    $(document).ready(function(){
+//        setInterval(fetchdata, 3000);
+//    });
 </script>
     {% endblock %}
   </body>

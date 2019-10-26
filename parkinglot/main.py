@@ -5,41 +5,58 @@ import json
 app = Flask(__name__)
 
 
-def getParkUpdate():
+# def getParkUpdate():
+#     deviceID = "19151543448"
+#     sensorID = "camera1"
+#     apiURL = 'https://iot.cht.com.tw/iot/v1/device/{0}/sensor/{1}/snapshot'.format(deviceID, sensorID)
+#     headers = {
+#         "CK": "PKYMWHKYFR1ZK2K0YE",
+#         "device_id": deviceID,
+#         "sensor_id": sensorID
+#     }
+#     response = requests.get(apiURL, headers=headers)
+#     picPathUrl = 'images.jpg'
+#     with open(picPathUrl, 'wb') as f:
+#         f.write(response.content)
+#
+#     apiURL = 'https://iot.cht.com.tw/apis/CHTIoT/ivs-vehicle/v1/snapshot'
+#     headers = {
+#         "X-API-KEY": "ea522b8e-696e-4084-b9eb-97fdbd677d52",
+#     }
+#
+#     files = {"file": open(picPathUrl, "rb")}
+#
+#     response = requests.post(apiURL, files=files, headers=headers)
+#
+#     return response.text
+
+
+def getResultPic():
     deviceID = "19151543448"
-    sensorID = "camera1"
+    sensorID = "recogResult1"
     apiURL = 'https://iot.cht.com.tw/iot/v1/device/{0}/sensor/{1}/snapshot'.format(deviceID, sensorID)
     headers = {
         "CK": "PKYMWHKYFR1ZK2K0YE",
         "device_id": deviceID,
-        "sensor_id": sensorID,
-        "snapshot_id": "410d8721-cec0-454e-9f7b-f14fade2b938"
+        "sensor_id": sensorID
     }
     response = requests.get(apiURL, headers=headers)
-    picPathUrl = 'testpic.jpg'
+    picPathUrl = 'static/images/result.jpg'
     with open(picPathUrl, 'wb') as f:
         f.write(response.content)
 
-    apiURL = 'https://iot.cht.com.tw/apis/CHTIoT/ivs-vehicle/v1/snapshot'
-    headers = {
-        "X-API-KEY": "ea522b8e-696e-4084-b9eb-97fdbd677d52",
-    }
 
-    files = {"file": open(picPathUrl, "rb")}
-
-    response = requests.post(apiURL, files=files, headers=headers)
-
-    return response.text
-
-
-def controlPark():
+def getResultMeta():
     deviceID = "19151543448"
-    apiURL = 'https://iot.cht.com.tw/iot/v1/device/{0}/rawdata'.format(deviceID)
+    sensorID = "recogResult1"
+    apiURL = 'https://iot.cht.com.tw/iot/v1/device/{0}/sensor/{1}/snapshot/meta'.format(deviceID, sensorID)
     headers = {
         "CK": "PKYMWHKYFR1ZK2K0YE",
-        "device_id": deviceID
+        "device_id": deviceID,
+        "sensor_id": sensorID
     }
-    response = requests.post(apiURL, headers=headers)
+    response = requests.get(apiURL, headers=headers)
+    return response.text
 
 
 def getParkStatus():
@@ -57,9 +74,9 @@ def getParkStatus():
 
 @app.route('/')
 def home():
-    carInfo = json.loads(getParkUpdate())
-    carNum = len(carInfo)
-    return render_template('index.html', carInfo=carInfo, carNum=carNum)
+    # carInfo = json.loads(getParkUpdate())
+    # carNum = len(carInfo)
+    return render_template('index.html')
 
 
 @app.route('/login')
@@ -70,16 +87,15 @@ def login():
 @app.route('/parking')
 def parking():
     lotsInfo = json.loads(getParkStatus())
-    print(lotsInfo['value'][0])
 
     return render_template('parking.html', lotsInfo=lotsInfo)
 
 
-@app.route('/getData', methods=['GET'])
-def getData():
-    carInfo = json.loads(getParkUpdate())
-    carNum = len(carInfo)
-    return jsonify(carInfo=carInfo, carNum=carNum)
+@app.route('/getRecogData', methods=['GET'])
+def getRecogData():
+    getResultPic()
+    metaInfo = getResultMeta()
+    return metaInfo
 
 
 @app.route('/getLotsData', methods=['GET'])
