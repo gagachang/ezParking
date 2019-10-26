@@ -41,4 +41,18 @@ headers = {
 files = {"file": open("../static/img/car2.jpg", "rb")}
 
 response = requests.post(apiURL, files=files, headers=headers)
-print(response.text)  # Here we get how many cars parking in the camera area
+json_data = json.loads(response.text)
+
+# count the number of cars which are parking in the lots
+cars = [0, 0, 0] 
+for key in json_data: # Here we get how many cars parking in the camera area
+    if key['x'] > 0 and key['x'] < 50 :
+        cars[0] = 1
+    elif key['x'] > 260 and key['x'] < 340 :
+        cars[1] = 1
+    elif key['x'] > 850 and key['x'] < 920 :
+        cars[2] = 1
+
+for i, v in enumerate(cars) :
+    if v == 0 :
+        print("The space: " + str(i))
