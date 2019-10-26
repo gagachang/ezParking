@@ -34,4 +34,4 @@ cd ~/darknet
 
 The detect result will put in `darknet` directory and named `predictions.jpg`
 
-![image](https://github.com/gagachang/ezParking/blob/master/testImage/car2-result.png)
+![image](https://github.com/gagachang/ezParking/blob/master/static/img/car2-result.png)
