@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>ezParking</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/parking.css') }}" />
+  </head>
+
+  <style>
+
+  </style>
+
+  <body id="top">
+    {% extends "template.html" %}
+    {% block content %}
+
+    <!-- Main -->
+    <div id="main" >
+    	<div id="parkingbanner">
+        <div class="inner">
+            <div id="parking-place">
+                <div id="lots-A1" class="box" style="display: inline-block;height: 80px;width:200px;padding:20px;border:2px white solid;margin-right:10px;">A1</div>
+                <div id="lots-A2" class="box" style="display: inline-block;height: 80px;width:200px;padding:20px;border:2px white solid;margin-right:10px;">A2</div>
+                <div id="lots-A3" class="box" style="display: inline-block;height: 80px;width:200px;padding:20px;border:2px white solid;margin-right:10px;">A3</div>
+            </div>
+            <div id="road" style="margin-top: 5px;margin-bottom: 5px;background-color:#DDDDDD;height: 120px; z-index: 0px"><h1 style="text-align: center;font-size: 80px;color: black">Road</h1>
+            </div>
+
+            <div id="message" class="box" style="height: 300px;border:2px white solid;margin-top: 20px;">
+            	<h2>Parking Space Info</h2>
+            	<table class="tg">
+				  <tr>
+				    <th class="tg-0pky" colspan="2" rowspan="2"></th>
+				    <th class="tg-ei2i">License Plate Number</th>
+				    <th class="tg-ei2i">Entry Time</th>
+				    <th class="tg-ei2i">Duration</th>
+				    <th class="tg-ei2i">Parking Fee</th>
+				  </tr>
+				  <tr>
+				    <td class="tg-0pky"></td>
+				    <td class="tg-0pky"></td>
+				    <td class="tg-0pky"></td>
+				    <td class="tg-0pky"></td>
+				  </tr>
+				</table>
+            </div>
+        </div>
+        </div>
+    </div>
+  <script>
+    function lotsUpdate(){
+        $.ajax({
+            url: '/getLotsData',
+            type: 'get',
+            success: function(response){
+            // Perform operation on the return value
+            //console.log(response);
+            lotsObj = JSON.parse(response['lotsInfo']['value']['0']);
+            //console.log(lotsObj);
+            for(let [key, value] of Object.entries(lotsObj)){
+              //console.log(key);
+              //console.log(value);
+              if(lotsObj[key] == 1){
+                $(`#lots-${key}`).css({"background-color": "red"});
+              }
+              else{
+                $(`#lots-${key}`).css({"background-color": "transparent"});
+              }
+            }
+          }
+        });
+    }
+    $(document).ready(function(){
+      lotsUpdate();
+      setInterval(lotsUpdate, 5000);
+    });
+  </script>
+       {% endblock %}
+   </body>
+</html>

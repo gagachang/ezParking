@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>ezParking</title>
+  </head>
+  <body>
+    {% extends "template.html" %}
+    {% block content %}
+    <section id="banner" data-video="images/banner">
+      <div class="inner">
+        <header>
+          <h1>ezParking</h1>
+        </header>
+        <a href="#main" class="more">Learn More</a>
+        <div id="menu">
+            <div>
+                <div class="active"><a href="index.html" accesskey="1" title="">Latest Parking Lot</a></div>
+                <div><a href="login.html" accesskey="2" title="">Login</a></div>
+            </div>
+        </div>
+      </div>
+    </section>
+
+    <div id="main">
+      <div id="map"></div>
+      <script >
+          var map ;
+          var a = 1;
+          var contentString = '<a href="/parking"><input type="button" id="btn" value="停車場A"></a>';
+          var position = {
+              lat: 24.793539,
+              lng: 120.991245
+          };
+
+          function initMap() {
+            map = new google.maps.Map(document.getElementById('map'), {
+              zoom: 17,
+              center: position
+            });
+
+            var marker = new google.maps.Marker({
+              position: position,
+              map: map,
+            });
+
+            var infowindow = new google.maps.InfoWindow({
+              content: contentString,
+              position: position,
+              maxWidth: 300
+            });
+
+            infowindow.open(map, marker);
+            infowindow.addListener('domready',function() {
+              //var btn = document.getElementById('btn');
+              //btn.addEventListener('click', function() {
+              //  $.ajax({
+              //      url: '/parking',
+              //      type: "get"
+              //  });
+              //});
+            });
+            marker.addListener('click',function(){
+              infowindow.open(map, marker);
+            });
+        }
+      </script>
+      <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDguYD4tI9T2QJfwgYClkUIYX1x2vUznoY&callback=initMap"></script>
+    </div>
+
+
+
+
+      <div class="container">
+        <span id="car-info">{{carInfo}}</span>
+        <span id="car-num">停了{{carNum}}輛車</span>
+      </div>
+    <script>
+    function fetchdata(){
+        $.ajax({
+            url: '/getData',
+            type: 'get',
+            success: function(response){
+            // Perform operation on the return value
+            console.log(response);
+            document.getElementById("car-info").innerHTML = JSON.stringify(response['carInfo']);
+            document.getElementById("car-num").innerHTML = response['carNum'];
+            }
+        });
+    }
+    $(document).ready(function(){
+        setInterval(fetchdata, 3000);
+    });
+</script>
+    {% endblock %}
+  </body>
+
+
+</html>
