@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <title>ezParking</title>
   </head>
-  <body>
+  <body id="top">
     {% extends "template.html" %}
     {% block content %}
     <section id="banner" data-video="images/banner">
@@ -22,47 +22,71 @@
       </div>
     </section>
 
+
     <div id="main">
       <div id="map"></div>
       <script >
           var map ;
           var a = 1;
-          var contentString = '<a href="/parking"><input type="button" id="btn" value="停車場A"></a>';
-          var position = {
-              lat: 24.793539,
-              lng: 120.991245
-          };
+          var markers = [], infowindows =[] ;
+  
 
+          var position = [ 
+                            {label:'A',lat:24.793539,lng:120.991245},
+                            {label:'B',lat:24.794296,lng:120.991064},
+                            {label:'C',lat:24.793945,lng:120.991788}
+                         ];
+
+ 
           function initMap() {
             map = new google.maps.Map(document.getElementById('map'), {
               zoom: 17,
-              center: position
+              center: {
+                lat: 24.793896,
+                lng: 120.991348
+              }
             });
 
-            var marker = new google.maps.Marker({
-              position: position,
-              map: map,
-            });
+            for (var i = 0; i < position.length; i++) {
+             addMarker(i);
+             addInfowindow(i);
+             infowindows[i].open(map, markers[i]);
+            }
 
-            var infowindow = new google.maps.InfoWindow({
-              content: contentString,
-              position: position,
-              maxWidth: 300
-            });
+            function addMarker(e) {
+              markers[e] = new google.maps.Marker({
+                position: {
+                  lat: position[e].lat,
+                  lng: position[e].lng
+                },
+                map: map,
+                label: position[e].label
+              });
+            }
 
-            infowindow.open(map, marker);
-            infowindow.addListener('domready',function() {
-              //var btn = document.getElementById('btn');
-              //btn.addEventListener('click', function() {
-              //  $.ajax({
-              //      url: '/parking',
-              //      type: "get"
-              //  });
-              //});
-            });
-            marker.addListener('click',function(){
-              infowindow.open(map, marker);
-            });
+            function addInfowindow(e) {
+               infowindows[e] =new google.maps.InfoWindow({
+                  content : `<a href="/parking"><input type="button" id="btn" value="停車場`+e+`"></a>' `,
+                  position: {
+                    lat: position[e].lat,
+                    lng: position[e].lng
+                  }
+               });  
+            }
+
+            // infowindow.open(map, marker);
+            // infowindow.addListener('domready',function() {
+            //   //var btn = document.getElementById('btn');
+            //   //btn.addEventListener('click', function() {
+            //   //  $.ajax({
+            //   //      url: '/parking',
+            //   //      type: "get"
+            //   //  });
+            //   //});
+            // // });
+            // marker.addListener('click',function(){
+            //   infowindow.open(map, marker);
+            // });
         }
       </script>
       <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDguYD4tI9T2QJfwgYClkUIYX1x2vUznoY&callback=initMap"></script>

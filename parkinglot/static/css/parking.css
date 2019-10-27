@@ -581,7 +581,7 @@
 		}
 
 		.box .inner {
-			padding: 1.5em;
+			padding: 0.5em;
 			width: 100% !important;
 		}
 
@@ -1208,6 +1208,63 @@
 		overflow: hidden;
 	}
 
+	#parkingbanner{
+/*		-moz-align-items: center;
+		-webkit-align-items: center;
+		-ms-align-items: center;
+		align-items: center;*/
+		display: -moz-flex;
+		display: -webkit-flex;
+		display: -ms-flex;
+		display: flex;
+/*		-moz-justify-content: center;
+		-webkit-justify-content: center;
+		-ms-justify-content: center;
+		justify-content: center;*/
+		/*padding: 8em 4em 6em 4em;*/
+		min-height: 100vh;
+		background-image: url("../../images/pic03.jpg");
+		opacity:1;
+		/*background-position: center;*/
+		background-size: cover;
+		background-repeat: no-repeat;
+		border-top: 0;
+		position: relative;
+		text-align: center;
+		overflow: hidden;
+	}
+
+	#parkingbanner {
+		-moz-align-items: center;
+		-webkit-align-items: center;
+		-ms-align-items: center;
+		align-items: center;
+		display: -moz-flex;
+		display: -webkit-flex;
+		display: -ms-flex;
+		display: flex;
+		-moz-justify-content: center;
+		-webkit-justify-content: center;
+		-ms-justify-content: center;
+		justify-content: center;
+		padding: 8em 4em 6em 4em;
+		min-height: 100vh;
+		background-image: url("../../images/pic01.jpg");
+		opacity:1;
+		background-position: center;
+		background-size: cover;
+		background-repeat: no-repeat;
+		border-top: 0;
+		position: relative;
+		text-align: center;
+		overflow: hidden;
+	}
+
+	#parkingbanner .inner {
+			text-align: center;
+			position: relative;
+			
+
 	#loginbanner {
 		-moz-align-items: center;
 		-webkit-align-items: center;
@@ -1407,7 +1464,7 @@
 /* Main */
 
 	#main {
-		padding: 2em 0 2em 0;
+		padding: 4em ;
 	}
 
 		@media screen and (max-width: 736px) {
@@ -1479,7 +1536,11 @@
 
 
 .tg  {border-collapse:collapse;border-spacing:0;}
-.tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;overflow:hidden;word-break:normal;border-color:black;}
-.tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;overflow:hidden;word-break:normal;border-color:black;}
-.tg .tg-ei2i{color:#ffffff;border-color:#000000;text-align:left;vertical-align:top}
+.tg td{font-family:Arial, sans-serif;font-size:30px;padding:10px 5px;overflow:hidden;word-break:normal;border-color:black;}
+.tg th{font-family:Arial, sans-serif;font-size:30px;font-weight:normal;padding:10px 5px;overflow:hidden;word-break:normal;border-color:black;}
+.tg .tg-ei2i{text-align:left;vertical-align:top}
 .tg .tg-0pky{border-color:inherit;text-align:left;vertical-align:top}
+
+.road-inner{
+	background-color: #202024;width: 160px;height: 400px;margin: 50px auto;text-align: center;
+}

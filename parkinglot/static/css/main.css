@@ -561,7 +561,7 @@
 
 	.box {
 		border-radius: 4px;
-		margin-bottom: 2em;
+		/*margin-bottom: 2em;*/
 		background: #2c2c32;
 		text-align: center;
 	}
@@ -1221,7 +1221,7 @@
 		-webkit-justify-content: center;
 		-ms-justify-content: center;
 		justify-content: center;
-		padding: 8em 4em 6em 4em;
+		padding: 4em 2em 2em 2em;
 		min-height: 100vh;
 		background-image: url("../images/pic03.jpg");
 		opacity:1;
@@ -1391,7 +1391,7 @@
 
 			#banner {
 				min-height: 0;
-				padding: 6em 2em 4em 2em;
+				padding: 4em 2em 4em 2em;
 			}
 
 				#banner br {
