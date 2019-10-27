@@ -84,11 +84,11 @@ def login():
     return render_template('login.html')
 
 
-@app.route('/parking')
-def parking():
+@app.route('/parking/<no>')
+def parking(no):
     lotsInfo = json.loads(getParkStatus())
 
-    return render_template('parking.html', lotsInfo=lotsInfo)
+    return render_template('parking.html', lotsInfo=lotsInfo, no=str(no))
 
 
 @app.route('/getRecogData', methods=['GET'])

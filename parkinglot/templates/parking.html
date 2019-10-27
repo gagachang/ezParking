@@ -39,6 +39,55 @@
 				  </tr>
 				</table>
             </div>
+            <input type="image" src="{{ url_for('static', filename='images/arrow.png') }}" style="width: 50px; color: #d9d9d9;filter: invert(100%); position: fixed;bottom: 50vh;right: 0px; " alt="下一個停車場" onclick="location.href=(parseInt(`{{no}}`) + 1);">
+
+      <input type="image" src="{{ url_for('static', filename='images/arrow.png') }}" style="width: 50px; color: #d9d9d9;filter: invert(100%); position: fixed;bottom: 50vh;left: 0px; transform:rotate(180deg); " alt="上一個停車場" onclick="location.href= (parseInt(`{{no}}`) - 1);">
+
+      <div id="map"></div>
+      <script >
+          var map ;
+          var a = 1;
+          var contentString = '<a href="/parking"><input type="button" id="btn" value="停車場A"></a>';
+          var position = {
+              lat:24.793539,
+              lng:120.991245
+          };
+
+          function initMap() {
+            map = new google.maps.Map(document.getElementById('map'), {
+              zoom: 17,
+              center: position
+            });
+
+            var marker = new google.maps.Marker({
+              position: position,
+              map: map,
+            });
+
+            var infowindow = new google.maps.InfoWindow({
+              content: contentString,
+              position: position,
+              maxWidth: 300
+            });
+
+            infowindow.open(map, marker);
+            infowindow.addListener('domready',function() {
+              //var btn = document.getElementById('btn');
+              //btn.addEventListener('click', function() {
+              //  $.ajax({
+              //      url: '/parking',
+              //      type: "get"
+              //  });
+              //});
+            });
+            marker.addListener('click',function(){
+              infowindow.open(map, marker);
+            });
+        }
+      </script>
+      <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDguYD4tI9T2QJfwgYClkUIYX1x2vUznoY&callback=initMap"></script>
+
+
         </div>
         </div>
     </div>
@@ -51,7 +100,8 @@
             // Perform operation on the return value
             time = JSON.parse(response)["time"];
             $("#duration").text(time);
-            $("#result-pic").attr("src", "{{ url_for('static', filename='images/result.jpg') }}");
+            d = new Date();
+            $("#result-pic").attr("src", "../static/images/result.jpg?"+d.getTime());
           }
         });
     }
@@ -83,7 +133,7 @@
       setInterval(function(){
         lotsUpdate();
         getRecogData();
-      }, 5000);
+      }, 3000);
     });
   </script>
        {% endblock %}

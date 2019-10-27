@@ -29,15 +29,15 @@
           var map ;
           var a = 1;
           var markers = [], infowindows =[] ;
-  
 
-          var position = [ 
+
+          var position = [
                             {label:'A',lat:24.793539,lng:120.991245},
                             {label:'B',lat:24.794296,lng:120.991064},
                             {label:'C',lat:24.793945,lng:120.991788}
                          ];
 
- 
+
           function initMap() {
             map = new google.maps.Map(document.getElementById('map'), {
               zoom: 17,
@@ -66,12 +66,12 @@
 
             function addInfowindow(e) {
                infowindows[e] =new google.maps.InfoWindow({
-                  content : `<a href="/parking"><input type="button" id="btn" value="停車場`+e+`"></a>' `,
+                  content : `<a href="/parking/0"><input type="button" id="btn" value="停車場`+e+`"></a>' `,
                   position: {
                     lat: position[e].lat,
                     lng: position[e].lng
                   }
-               });  
+               });
             }
 
             // infowindow.open(map, marker);
